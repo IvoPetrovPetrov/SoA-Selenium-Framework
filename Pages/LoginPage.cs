@@ -11,7 +11,7 @@ namespace SeleniumFramework.Pages
         private IWebElement EmailInput => _driver.FindElement(By.XPath("//input[@type='email']"));
         private IWebElement PasswordInput => _driver.FindElement(By.XPath("//input[@type='password']"));
         private IWebElement SubmitButton => _driver.FindElement(By.XPath("//button[@type='submit' and contains(text(), 'Sign In')]"));
-        //private IWebElement SignUpHere => _driver.FindElement(By.XPath("//a[text()='Sign Up Here...']"));
+
         public LoginPage(IWebDriver driver)
         {
             this._driver = driver;
@@ -42,5 +42,17 @@ namespace SeleniumFramework.Pages
             string errorDialogText = _driver.FindElement(By.ClassName("alert")).Text;
             Assert.That(errorDialogText, Is.EqualTo(errorMessage));
         }
+
+        public void VerifyTheFormIsVisible()
+        {
+            Assert.Multiple(() =>
+            {
+                Assert.That(EmailInput.Displayed, Is.True);
+                Assert.That(PasswordInput.Displayed, Is.True);
+                Assert.That(SubmitButton.Displayed, Is.True);
+            });
+        }
+
+
     }
 }

@@ -37,7 +37,8 @@ namespace SeleniumFramework.Pages
             this._driver = driver;
         }
 
-        public void ValidUserRegistration(string firstname, string surname, string email, string password, string country, string city)
+        
+        public void PopulateRegistrationForm(string firstname, string surname, string email, string password, string country, string city)
         {
             this.FirstNameInput.SendKeys(firstname);
             this.SurNameInput.SendKeys(surname);
@@ -45,10 +46,23 @@ namespace SeleniumFramework.Pages
             this.PasswordInput.SendKeys(password);
             this.Country.SendKeys(country);
             this.City.SendKeys(city);
+        }
+        public void ValidUserRegistration(string firstname, string surname, string email, string password, string country, string city)
+        {
+            PopulateRegistrationForm(firstname, surname, email, password, country, city);
 
+        }
+
+        public void TermsAndConditionsClick()
+        {
             var actions = new Actions(_driver);
             actions.ScrollToElement(RadioTermsButton).Perform();
             RadioTermsButton.Click();
+        }
+
+        public void ClickRegisterButton()
+        {
+            var actions = new Actions(_driver);
             actions.ScrollToElement(RegisterButton).Perform();
             this.RegisterButton.Click();
         }

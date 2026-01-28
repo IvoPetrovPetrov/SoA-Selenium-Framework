@@ -55,6 +55,7 @@ namespace SeleniumFramework
         }
 
         [Test]
+        [Category("Registration")]
         public void ValidRegistration()
         {
             string firstname = "test";
@@ -64,7 +65,9 @@ namespace SeleniumFramework
             string country = "Bulgaria";
             string city = "Plovdiv";
 
-            _registerPage.ValidUserRegistration(firstname, surname, email, password, country, city);
+            _registerPage.PopulateRegistrationForm(firstname, surname, email, password, country, city);
+            _registerPage.TermsAndConditionsClick();
+            _registerPage.ClickRegisterButton();
             _dashboardPage.VerifyLoggedUserEmailIs(email);
 
             _dashboardPage.Logout();
@@ -74,6 +77,10 @@ namespace SeleniumFramework
 
             _usersPage.DeleteUserByEmail(email);
             _usersPage.VerifyUserIsDeletedByEmail(email);
+            _dashboardPage.Logout();
+
+            _loginPage.LoginWith(email, password);
+            _loginPage.VerifyErrorMessageIsDisplayed("Invalid email or password");
 
         }
     }
