@@ -8,28 +8,38 @@ namespace SeleniumFramework.Steps
     [Binding]
     public class DashboardSteps
     {
-        private readonly IWebDriver _driver;
+        private readonly DashboardPage _dashboardPage;
         private readonly SettingsModel _settingsModel;
 
-        public DashboardSteps(IWebDriver webDriver, SettingsModel model)
+        public DashboardSteps(DashboardPage dashboardPage, SettingsModel model)
         {
-            this._driver = webDriver;
+            this._dashboardPage = dashboardPage;
             this._settingsModel = model;
         }
 
         [Then("I should see the logged user in the main header")]
         public void ThenIShouldSeeTheLoggedUserInTheMainHeader()
         {
-            var dashboardPage = new DashboardPage(_driver);
-            dashboardPage.VerifyLoggedUserEmailIs(_settingsModel.Email);
-            dashboardPage.VerifyUsernameIs(_settingsModel.Username);
+            _dashboardPage.VerifyLoggedUserEmailIs(_settingsModel.Email);
+            _dashboardPage.VerifyUsernameIs(_settingsModel.Username);
         }
 
-        [Then("I should be able to logout successfully")]
+        [When("I should be able to logout successfully")]
         public void ThenIShouldBeAbleToLogoutSuccessfully()
         {
-            var dashboardPage = new DashboardPage(_driver);
-            dashboardPage.Logout();
+            _dashboardPage.Logout();
+        }
+
+        [When("I should see the logged user {string}")]
+        public void WhenIShouldSeeTheLoggedUser(string email)
+        {
+            _dashboardPage.VerifyLoggedUserEmailIs(email);
+        }
+
+        [When("I open Users list page")]
+        public void WhenIOpenUsersListPage()
+        {
+            _dashboardPage.OpenUsersMenu();
         }
     }
 }

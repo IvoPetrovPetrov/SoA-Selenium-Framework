@@ -1,10 +1,9 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.BiDi;
 using SeleniumFramework.Extensions;
 
 namespace SeleniumFramework.Pages
 {
-    internal class DashboardPage
+    public class DashboardPage
     {
         private readonly IWebDriver _driver;
 
@@ -33,6 +32,7 @@ namespace SeleniumFramework.Pages
         public void Logout()
         {
             LoggedUserAnchor.Click();
+            _driver.WaitUntilElementIsClickable(this.LogoutButton);
             LogoutButton.Click();
         }
 

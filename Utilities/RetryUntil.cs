@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OpenQA.Selenium;
 
 namespace SeleniumFramework.Utilities
 {
@@ -16,12 +12,18 @@ namespace SeleniumFramework.Utilities
                 {
                     action.Invoke();
                 }
-                catch (RetryException)
+                catch (Exception e)
                 {
-                    retryNumber--;
-                    Thread.Sleep(waitInMilliseconds);
+                    if (e is RetryException || e is StaleElementReferenceException)
+                    {
 
-                    continue;
+                        retryNumber--;
+                        Thread.Sleep(waitInMilliseconds);
+
+                        continue;
+                    }
+                    else
+                        throw;
                 }
 
                 break;

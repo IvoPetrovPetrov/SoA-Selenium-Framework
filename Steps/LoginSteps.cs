@@ -1,16 +1,9 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using Reqnroll;
 using SeleniumFramework.Models;
 using SeleniumFramework.Pages;
 using SeleniumFramework.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebDriverManager;
-using WebDriverManager.DriverConfigs.Impl;
+
 
 namespace SeleniumFramework.Steps
 {
@@ -22,22 +15,11 @@ namespace SeleniumFramework.Steps
 
         private readonly SettingsModel _settingsModel;
 
-        public LoginSteps(IWebDriver driver, SettingsModel model)
+        public LoginSteps(IWebDriver driver, LoginPage loginPage, SettingsModel model)
         {
             this._driver = driver;
+            this._loginPage = loginPage;
             this._settingsModel = model;
-        }
-
-        [BeforeScenario]
-        public void BeforeScenario()
-        {
-            _loginPage = new LoginPage(_driver);
-        }
-
-        [AfterScenario]
-        public void AfterScenario()
-        {
-            _driver.Quit();
         }
 
         [Given("I navigate to the main page")]
@@ -81,8 +63,6 @@ namespace SeleniumFramework.Steps
             _loginPage.LoginWith(email, password);
         }
 
-
-
         [Then("I should still be on the login page")]
         public void ThenIShouldStillBeOnTheLoginPage()
         {
@@ -101,7 +81,5 @@ namespace SeleniumFramework.Steps
             _loginPage.VerifyPasswordInputIsEmpty();
             _loginPage.VerifyErrorMessageIsDisplayed(errorText);
         }
-
-
     }
 }

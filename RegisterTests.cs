@@ -1,18 +1,9 @@
-﻿using Bogus;
-using Microsoft.Extensions.Configuration;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using SeleniumFramework.Models;
 using SeleniumFramework.Pages;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
-using SeleniumFramework.Utilities;
-
 
 namespace SeleniumFramework
 {

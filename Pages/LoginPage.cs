@@ -1,5 +1,5 @@
 ﻿using OpenQA.Selenium;
-using SeleniumFramework.Extensions;
+
 
 namespace SeleniumFramework.Pages
 {
@@ -52,7 +52,5 @@ namespace SeleniumFramework.Pages
                 Assert.That(SubmitButton.Displayed, Is.True);
             });
         }
-
-
     }
 }

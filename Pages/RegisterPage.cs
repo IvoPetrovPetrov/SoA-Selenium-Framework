@@ -1,10 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SeleniumFramework.Models;
 
 namespace SeleniumFramework.Pages
 {
@@ -37,6 +33,20 @@ namespace SeleniumFramework.Pages
             this._driver = driver;
         }
 
+        public UserModel RegisterNewUser()
+        {
+            var user = new UserModel
+            {
+                FirstName = "John",
+                Surname = "Doe",
+                Email = $"johndoe{Guid.NewGuid()}@example.com",
+                Password = "Password123!",
+                Country = "USA",
+                City = "New York"
+            };
+            PopulateRegistrationForm(user.FirstName, user.Surname, user.Email, user.Password, user.Country, user.City);
+            return user;
+        }
         
         public void PopulateRegistrationForm(string firstname, string surname, string email, string password, string country, string city)
         {
@@ -50,7 +60,6 @@ namespace SeleniumFramework.Pages
         public void ValidUserRegistration(string firstname, string surname, string email, string password, string country, string city)
         {
             PopulateRegistrationForm(firstname, surname, email, password, country, city);
-
         }
 
         public void TermsAndConditionsClick()
@@ -67,8 +76,6 @@ namespace SeleniumFramework.Pages
             this.RegisterButton.Click();
         }
 
-        //Validations
-
         public void InvalidNameFormat(string name)
         {
             this.FirstNameInput.SendKeys(name);
@@ -77,10 +84,6 @@ namespace SeleniumFramework.Pages
                 throw new ArgumentException("Invalid name format. Name must contain only letters and be between 2 and 15 characters long.");
             }
             //I need to restrict the name to be letters only, 2-15 characters).
-
-
         }
-
-
     }
 }

@@ -8,5 +8,6 @@
         public string Username { get; set; }
         public string RegisterPage { get; set; }
         public string UsersPage { get; set; }
+        public string ConnectionString { get; set; }
     }
 }
