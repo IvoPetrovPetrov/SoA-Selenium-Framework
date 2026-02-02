@@ -158,7 +158,7 @@ await this.FeatureBackgroundAsync();
  await testRunner.ThenAsync("I should see the logged user in the main header", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
 #line 15
- await testRunner.ThenAsync("I should be able to logout successfully", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+ await testRunner.AndAsync("I should be able to logout successfully", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

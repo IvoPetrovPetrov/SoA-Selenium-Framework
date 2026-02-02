@@ -10,31 +10,32 @@ namespace SeleniumFramework.Steps
     {
         private IWebDriver _driver;
         private UsersPage _usersPage;
+        private ScenarioContext _context;
 
         private readonly SettingsModel _settingsModel;
         private ICollection<IWebElement> UsersEmails => _driver.FindElements(By.XPath("//table//td[6]"));
 
 
-        public UserSteps(IWebDriver driver, UsersPage usersPage, SettingsModel model)
+        public UserSteps(ScenarioContext scenario, IWebDriver driver, UsersPage usersPage, SettingsModel model)
         {
-            this._usersPage = _usersPage;
+            this._usersPage = usersPage;
+            this._context = scenario;
             this._driver = driver;
             this._settingsModel = model;
         }
 
-        [When("I delete the newly registered user {string}")]
-        public void WhenIDeleteTheNewlyRegisteredUser(string email)
+        [When("I delete the newly registered user")]
+        public void WhenIDeleteTheNewlyRegisteredUser()
         {
-            _usersPage.DeleteUserByEmail(email);
+            _usersPage.DeleteUserByEmail(_context.Get<string>("userMail"));
         }
 
-        [When("I see the deleted user is not in the User list anymore {string}")]
-        public void WhenISeeTheDeletedUserIsNotInTheUserListAnymore(string email)
+        [When("I see the deleted user is not in the User list anymore")]
+        public void WhenISeeTheDeletedUserIsNotInTheUserListAnymore()
         {
-            //var usersPage = new UsersPage(_driver);
-            bool userExists = UsersEmails.Any(e => e.Text == email); ;
-            Assert.That(userExists, Is.False, $"User with email '{email}' was not deleted.");
-        }
+            var email = _context.Get<string>("userMail");
+            _usersPage.VerifyUserIsDeletedByEmail(_context.Get<string>("userMail"));
 
+        }
     }
 }

@@ -12,12 +12,14 @@ namespace SeleniumFramework.Steps
     {
         private IWebDriver _driver;
         private LoginPage _loginPage;
+        private ScenarioContext _context;
 
         private readonly SettingsModel _settingsModel;
 
-        public LoginSteps(IWebDriver driver, LoginPage loginPage, SettingsModel model)
+        public LoginSteps(ScenarioContext scenario, IWebDriver driver, LoginPage loginPage, SettingsModel model)
         {
             this._driver = driver;
+            this._context = scenario;
             this._loginPage = loginPage;
             this._settingsModel = model;
         }
@@ -57,10 +59,10 @@ namespace SeleniumFramework.Steps
                 _loginPage.LoginWith(email, password);
         }
 
-        [When("I try to login with deleted user again {string} and {string}")]
-        public void WhenITryToLoginWithDeletedUserAgainAnd(string email, string password)
+        [When("I try to login with deleted user again")]
+        public void WhenITryToLoginWithDeletedUserAgainAnd()
         {
-            _loginPage.LoginWith(email, password);
+            _loginPage.LoginWith(_context.Get<string>("userMail"), _context.Get<string>("userPassword"));
         }
 
         [Then("I should still be on the login page")]

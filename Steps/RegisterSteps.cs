@@ -12,10 +12,13 @@ namespace SeleniumFramework.Steps
         private RegisterPage _registerPage;
 
         private readonly SettingsModel _settingsModel;
+        private readonly ScenarioContext _context;
 
-        public RegisterSteps(RegisterPage registerPage, IWebDriver driver, SettingsModel model)
+
+        public RegisterSteps(ScenarioContext scenario, RegisterPage registerPage, IWebDriver driver, SettingsModel model)
         {
             this._driver = driver;
+            this._context = scenario;
             this._registerPage = registerPage;
             this._settingsModel = model;
         }
@@ -32,7 +35,10 @@ namespace SeleniumFramework.Steps
         [When("I fill in user registration form")]
         public void GivenIFillInUserRegistrationForm()
         {
-            _registerPage.PopulateRegistrationForm("test", "ivo", "testvio@test.com", "123456", "Bulgaria", "Plovdiv");
+            var user = _registerPage.GetUserInformation();
+            _context.Add("userMail", user.Email);
+            _context.Add("userPassword", user.Password);
+            _registerPage.PopulateRegistrationForm(user);
         }
 
         [When("I click on T&C button")]

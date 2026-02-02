@@ -5,7 +5,7 @@ namespace SeleniumFramework.Pages
     public class UsersPage
     {
         private readonly IWebDriver _driver;
-        private IWebElement DeleteForUserByEmail(string email) => _driver.FindElement(By.XPath($"//td[6][text()='{email}']/..//td[7]/a"));
+        private IWebElement DeleteForUserByEmail(string email) => _driver.FindElement(By.XPath($"//tr//td[6][contains(text(), '{email}')]/following-sibling::td"));
         private ICollection<IWebElement> UsersEmails => _driver.FindElements(By.XPath("//table//td[6]"));
 
         public UsersPage(IWebDriver driver)

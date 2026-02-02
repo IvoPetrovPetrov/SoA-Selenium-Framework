@@ -17,7 +17,6 @@ namespace SeleniumFramework.Pages
             this._driver = driver;
         }
 
-        // Actions
         public void LoginWith(string email, string password)
         {
             this.EmailInput.SendKeys(email);
@@ -30,7 +29,6 @@ namespace SeleniumFramework.Pages
             return string.IsNullOrEmpty(PasswordInput.GetAttribute("value"));
         }
 
-        // Validations
         public void VerifyPasswordInputIsEmpty()
         {
             string? text = PasswordInput.GetAttribute("value");

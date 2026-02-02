@@ -10,11 +10,13 @@ namespace SeleniumFramework.Steps
     {
         private readonly DashboardPage _dashboardPage;
         private readonly SettingsModel _settingsModel;
+        private readonly ScenarioContext _context;
 
-        public DashboardSteps(DashboardPage dashboardPage, SettingsModel model)
+        public DashboardSteps(ScenarioContext scenario, DashboardPage dashboardPage, SettingsModel model)
         {
             this._dashboardPage = dashboardPage;
             this._settingsModel = model;
+            this._context = scenario;
         }
 
         [Then("I should see the logged user in the main header")]
@@ -30,10 +32,10 @@ namespace SeleniumFramework.Steps
             _dashboardPage.Logout();
         }
 
-        [When("I should see the logged user {string}")]
-        public void WhenIShouldSeeTheLoggedUser(string email)
+        [When("I should see the logged registered user")]
+        public void WhenIShouldSeeTheLoggedRegisteredUser()
         {
-            _dashboardPage.VerifyLoggedUserEmailIs(email);
+            _dashboardPage.VerifyLoggedUserEmailIs(_context.Get<string>("userMail"));
         }
 
         [When("I open Users list page")]

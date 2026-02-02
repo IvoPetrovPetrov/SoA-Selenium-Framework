@@ -11,6 +11,7 @@ namespace SeleniumFramework.Pages
         private IWebElement UsernameHeader => _driver.FindElement(By.XPath("//div[contains(@class, 'container-fluid')]/h1"));
         private IWebElement UsersButton => _driver.FindElement(By.XPath("//div[@id='navbar']//a[contains(text(), 'Users')]"));
         private IWebElement LogoutButton => _driver.FindElement(By.XPath("//a[contains(text(),'Logout')]"));
+        
         public DashboardPage(IWebDriver driver)
         {
             this._driver = driver;

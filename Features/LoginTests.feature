@@ -12,7 +12,7 @@ Background:
 Scenario: Login with existing user, should be successful and the dashboard should be displayed
 	When I login with valid credentials
 	Then I should see the logged user in the main header
-	Then I should be able to logout successfully
+	And I should be able to logout successfully
 
 @Login
 @Smoke

@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
+using Reqnroll;
 using SeleniumFramework.Models;
 
 namespace SeleniumFramework.Pages
@@ -33,7 +34,7 @@ namespace SeleniumFramework.Pages
             this._driver = driver;
         }
 
-        public UserModel RegisterNewUser()
+        public UserModel GetUserInformation()
         {
             var user = new UserModel
             {
@@ -43,37 +44,36 @@ namespace SeleniumFramework.Pages
                 Password = "Password123!",
                 Country = "USA",
                 City = "New York"
-            };
-            PopulateRegistrationForm(user.FirstName, user.Surname, user.Email, user.Password, user.Country, user.City);
+            };            
             return user;
         }
-        
-        public void PopulateRegistrationForm(string firstname, string surname, string email, string password, string country, string city)
+
+        public void PopulateRegistrationForm(UserModel user)
         {
-            this.FirstNameInput.SendKeys(firstname);
-            this.SurNameInput.SendKeys(surname);
-            this.EmailInput.SendKeys(email);
-            this.PasswordInput.SendKeys(password);
-            this.Country.SendKeys(country);
-            this.City.SendKeys(city);
-        }
-        public void ValidUserRegistration(string firstname, string surname, string email, string password, string country, string city)
-        {
-            PopulateRegistrationForm(firstname, surname, email, password, country, city);
+            FirstNameInput.SendKeys(user.FirstName);
+            SurNameInput.SendKeys(user.Surname);
+            EmailInput.SendKeys(user.Email);
+            PasswordInput.SendKeys(user.Password);
+            Country.SendKeys(user.Country);
+            City.SendKeys(user.City);
         }
 
         public void TermsAndConditionsClick()
         {
-            var actions = new Actions(_driver);
-            actions.ScrollToElement(RadioTermsButton).Perform();
+            new Actions(_driver)
+                .ScrollToElement(RadioTermsButton)
+                .Perform();
+
             RadioTermsButton.Click();
         }
 
         public void ClickRegisterButton()
         {
-            var actions = new Actions(_driver);
-            actions.ScrollToElement(RegisterButton).Perform();
-            this.RegisterButton.Click();
+            new Actions(_driver)
+                .ScrollToElement(RegisterButton)
+                .Perform();
+
+            RegisterButton.Click();
         }
 
         public void InvalidNameFormat(string name)
